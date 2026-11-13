@@ -2,8 +2,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-/** Iterator over a message list, yielding only messages sent or received by a given user.
- *  Assumes the list is not modified between hasNext() and next(). */
+// Iterator:
 public class searchMessagesByUser implements Iterator<Message> {
     private final List<Message> messages;
     private final User user;

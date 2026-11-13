@@ -9,36 +9,42 @@ public class Driver {
         server.registerUser(alice);
         server.registerUser(bob);
         server.registerUser(carol);
+        System.out.println();
 
-        System.out.println("\n== 1. Send to one and to multiple users ==");
+        System.out.println("Send to one and to multiple users");
         alice.send("Hi Bob!", bob);
         alice.send("Hello everyone!", bob, carol);
         bob.send("Hey Alice, how are you?", alice);
         carol.send("Good morning!", alice, bob);
+        System.out.println();
 
-        System.out.println("\n== 2. Undo (Memento) ==");
+        System.out.println("Undo: ");
         alice.send("Oops, wrong chat!", bob, carol);
         alice.undoLastMessage();
         bob.viewHistory();
         carol.viewHistory();
+        System.out.println();
 
-        System.out.println("\n== 3. Blocking (Mediator) ==");
+        System.out.println("Blocking: ");
         bob.block(carol);
         carol.send("Bob, can you see this?", bob, alice);
         alice.send("Carol said hi to you, Bob", bob);
         bob.unblock(carol);
         carol.send("Now it should work", bob);
+        System.out.println();
 
-        System.out.println("\n== 4. View chat history ==");
+        System.out.println("View chat history: ");
         alice.viewHistory();
         bob.viewHistory();
         carol.viewHistory();
+        System.out.println();
 
-        System.out.println("\n== 5. Iterator: Bob's messages involving Carol ==");
+        System.out.println("Iterator: Bob's messages involving Carol ");
         Iterator<Message> it = bob.iterator(carol);
         while (it.hasNext()) System.out.println("  " + it.next());
+        System.out.println();
 
-        System.out.println("\n== 5b. Iterator: Alice's messages involving Bob ==");
+        System.out.println("Alice's messages involving Bob: ");
         it = alice.iterator(bob);
         while (it.hasNext()) System.out.println("  " + it.next());
     }

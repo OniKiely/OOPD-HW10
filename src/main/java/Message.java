@@ -3,7 +3,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
-/** A message sent by a user to one or more recipients. */
 public class Message {
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
     private static LocalDateTime lastStamp = LocalDateTime.MIN;
@@ -20,7 +19,6 @@ public class Message {
         this.content = content;
     }
 
-    /** Guarantees strictly increasing timestamps so a message can be identified by (sender, timestamp). */
     private static synchronized LocalDateTime nextTimestamp() {
         LocalDateTime now = LocalDateTime.now();
         if (!now.isAfter(lastStamp)) now = lastStamp.plusNanos(1000);
@@ -33,7 +31,6 @@ public class Message {
     public LocalDateTime getTimestamp() { return timestamp; }
     public String getContent() { return content; }
 
-    /** True if the given user sent or was a recipient of this message. */
     public boolean involves(User user) {
         return sender.equals(user) || recipients.contains(user);
     }

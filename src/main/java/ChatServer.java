@@ -1,6 +1,6 @@
 import java.util.*;
 
-/** Mediator: all user-to-user communication goes through here. */
+// Mediator:
 public class ChatServer implements ChatMediator {
     private final Set<User> users = new LinkedHashSet<>();
     // blocker -> set of users whose messages the blocker does not want to receive
@@ -40,7 +40,6 @@ public class ChatServer implements ChatMediator {
         return blocked.getOrDefault(recipient, Collections.emptySet()).contains(sender);
     }
 
-    /** Creates the message, records it for the sender, and forwards it to each eligible recipient. */
     @Override
     public void sendMessage(User sender, List<User> recipients, String content) {
         if (!users.contains(sender)) {
@@ -61,7 +60,6 @@ public class ChatServer implements ChatMediator {
         }
     }
 
-    /** Retracts a previously sent message from the sender's and all recipients' histories. */
     public void retractMessage(User sender, MessageMemento memento) {
         sender.getHistory().removeMessage(memento);
         for (User u : users) {
